@@ -12,7 +12,7 @@ export interface Prediction {
   providedIn: 'root'
 })
 export class PredictionService {
-  private apiUrl = 'https://localhost:7072/Predictions';
+  private apiUrl = 'http://localhost:5000/predictions';
 
   constructor(private http: HttpClient) {}
 
@@ -20,3 +20,4 @@ export class PredictionService {
     return this.http.get<Prediction[]>(this.apiUrl);
   }
 }
+
