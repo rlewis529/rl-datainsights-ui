@@ -1,13 +1,27 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { PredictionService, Prediction } from './services/prediction.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
-  imports: [RouterOutlet],
+  standalone: true, 
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  imports: [CommonModule]
 })
-export class AppComponent {
-  title = 'rl-datainsights-ui';
+export class AppComponent implements OnInit {
+  predictions: Prediction[] = [];
+
+  constructor(private predictionService: PredictionService) {}
+
+  ngOnInit() {
+    this.predictionService.getPredictions().subscribe({
+      next: (data) => {
+        console.log('Predictions:', data);
+        this.predictions = data;
+      },
+      error: (err) => {
+        console.error('API error:', err);
+      }
+    });
+  }  
 }
