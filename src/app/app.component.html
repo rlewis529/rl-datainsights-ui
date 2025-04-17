@@ -1,22 +1,3 @@
-<h2>✅ Flask JSON (from Python)</h2>
-<ul *ngIf="flaskPredictions.length; else loadingFlask">
-  <li *ngFor="let p of flaskPredictions">
-    {{ p.description }} — {{ p.probability | number:'1.2-2' }}
-  </li>
-</ul>
-<ng-template #loadingFlask><p>Loading Flask data...</p></ng-template>
+<app-header *ngIf="showHeader"></app-header>
 
-<hr />
-
-<h2>✅ Cosmos DB Check (from .NET API)</h2>
-<ul *ngIf="cosmosPredictions.length; else loadingCosmos">
-  <li *ngFor="let p of cosmosPredictions">
-    {{ p.description }} — {{ p.probability | number:'1.2-2' }}
-  </li>
-</ul>
-<ng-template #loadingCosmos><p>Checking Cosmos DB...</p></ng-template>
-
-<hr />
-
-<h2>📊 Flask Chart</h2>
-<img [src]="chartUrl" alt="Prediction Chart" width="600" />
+<router-outlet></router-outlet>

@@ -1,39 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { Component } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-
-interface Prediction {
-  id: string;
-  description: string;
-  probability: number;
-}
+import { HeaderComponent } from './header/header.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, HttpClientModule],
-  templateUrl: './app.component.html'
+  imports: [CommonModule, RouterModule, HeaderComponent],
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.css'
 })
-export class AppComponent implements OnInit {
-  flaskPredictions: Prediction[] = [];
-  cosmosPredictions: Prediction[] = [];
-  chartUrl = 'http://localhost:5000/chart';
+export class AppComponent {
+  showHeader = true;
 
-  constructor(private http: HttpClient) {}
-
-  ngOnInit() {
-    this.http.get<Prediction[]>('http://localhost:5000/predictions').subscribe({
-      next: data => {
-        this.flaskPredictions = data;
-      },
-      error: err => console.error('Error fetching from Flask:', err)
-    });
-
-    this.http.get<Prediction[]>('https://localhost:7072/predictions').subscribe({
-      next: data => {
-        this.cosmosPredictions = data;
-      },
-      error: err => console.error('Error fetching from Cosmos API:', err)
+  constructor(private router: Router) {
+    this.router.events.subscribe(() => {
+      this.showHeader = this.router.url !== '/';
     });
   }
 }

@@ -1,0 +1,18 @@
+<div class="spacer"></div>
+
+<a routerLink="/" class="nav-link back-link">← Back to Home</a>
+
+<div class="spacer"></div>
+
+<div class="stock-chart-container">
+    <form (ngSubmit)="getChart()">
+      <input type="text" [(ngModel)]="ticker" name="ticker" placeholder="Enter stock ticker" required />
+      <button type="submit">Get Chart</button>
+    </form>
+  
+    <div *ngIf="chartUrl">
+      <h3>Chart for {{ ticker.toUpperCase() }}</h3>
+      <img [src]="chartUrl" alt="Stock Chart" />
+    </div>
+</div>
+  
