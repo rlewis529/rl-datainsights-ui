@@ -37,6 +37,31 @@
     <button type="submit">Fetch News</button>
   </form>
 
+  <div class="spacer"></div>
+
+  <!-- <div class="sentiment-indicator" *ngIf="averageSentiment !== null">
+    <span>Sentiment:</span>
+    <div
+      class="sentiment-bubble"
+      [style.backgroundColor]="getSentimentColor(averageSentiment)"
+      [title]="averageSentiment | number:'1.2-2'"
+    ></div>
+  </div> -->
+  
+  <div class="gauge-container" *ngIf="averageSentiment !== null">
+    <div 
+      class="gauge-label"
+      title="Sentiment scores range from -1 (very negative) to +1 (very positive)" >      
+      Sentiment Score: {{ averageSentiment.toFixed(2) }}
+    </div>
+    <canvas 
+      id="sentimentGauge" 
+      width="200" 
+      height="100"
+      title="Sentiment scores range from -1 (very negative) to +1 (very positive)">
+    </canvas>
+  </div>
+
   <!-- News Results -->
   <div *ngIf="newsArticles.length > 0">
     <h4>News for {{ ticker.toUpperCase() }}</h4>
