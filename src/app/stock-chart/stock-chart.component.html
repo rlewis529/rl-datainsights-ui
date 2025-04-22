@@ -18,4 +18,41 @@
     <h3>Chart for {{ ticker.toUpperCase() }}</h3>
     <img [src]="chartUrl" alt="Stock Chart" />
   </div>
+
+  <hr />
+
+  <!-- News Date Range Form -->
+  <form (ngSubmit)="getNews()">
+    <h4>Company News</h4>
+    <label>
+      From:
+      <input type="date" [(ngModel)]="newsStartDate" name="newsStartDate" />
+    </label>
+    <label>
+      To:
+      <input type="date" [(ngModel)]="newsEndDate" name="newsEndDate" />
+    </label>
+    <button type="submit">Fetch News</button>
+  </form>
+
+  <!-- News Results Table -->
+  <div *ngIf="newsArticles.length > 0">
+    <h4>News for {{ ticker.toUpperCase() }}</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Source</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let article of newsArticles">
+          <td><a [href]="article.url" target="_blank">{{ article.headline }}</a></td>
+          <td>{{ article.source }}</td>
+          <td>{{ article.datetime | date: 'mediumDate' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
