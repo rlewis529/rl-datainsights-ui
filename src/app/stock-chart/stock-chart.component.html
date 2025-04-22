@@ -5,6 +5,7 @@
 <div class="spacer"></div>
 
 <div class="stock-chart-container">
+  <!-- Chart Form -->
   <form (ngSubmit)="getChart()">
     <input type="text" [(ngModel)]="ticker" name="ticker" placeholder="Enter stock ticker" required />
 
@@ -14,6 +15,7 @@
     <button type="submit">Get Chart</button>
   </form>
 
+  <!-- Chart Output -->
   <div *ngIf="chartUrl">
     <h3>Chart for {{ ticker.toUpperCase() }}</h3>
     <img [src]="chartUrl" alt="Stock Chart" />
@@ -21,7 +23,7 @@
 
   <hr />
 
-  <!-- News Date Range Form -->
+  <!-- News Form -->
   <form (ngSubmit)="getNews()">
     <h4>Company News</h4>
     <label>
@@ -35,7 +37,7 @@
     <button type="submit">Fetch News</button>
   </form>
 
-  <!-- News Results Table -->
+  <!-- News Results -->
   <div *ngIf="newsArticles.length > 0">
     <h4>News for {{ ticker.toUpperCase() }}</h4>
     <table>
@@ -47,12 +49,23 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let article of newsArticles">
+        <tr *ngFor="let article of paginatedArticles">
           <td><a [href]="article.url" target="_blank">{{ article.headline }}</a></td>
           <td>{{ article.source }}</td>
           <td>{{ article.datetime | date: 'mediumDate' }}</td>
         </tr>
       </tbody>
     </table>
+
+    <!-- Pagination Controls -->
+    <div class="pagination">
+      <button
+        *ngFor="let page of totalPages"
+        (click)="goToPage(page)"
+        [class.active]="page === currentPage"
+      >
+        {{ page }}
+      </button>
+    </div>
   </div>
 </div>
