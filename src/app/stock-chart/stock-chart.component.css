@@ -9,12 +9,30 @@ table {
   }
   
   th, td {
-    border: 1px solid #ddd;
+    border: 1px solid #ccc;
     padding: 0.5em;
     text-align: left;
   }
   
   th {
     background-color: #f4f4f4;
+  }
+  
+  .pagination {
+    margin-top: 10px;
+  }
+  
+  .pagination button {
+    margin-right: 4px;
+    padding: 4px 8px;
+    border: 1px solid #ccc;
+    background-color: white;
+    cursor: pointer;
+  }
+  
+  .pagination button.active {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
   }
   
